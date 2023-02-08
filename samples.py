@@ -28,3 +28,12 @@ with open('schema.json') as json_file:
 
 # Merge the two DataFrames based on the l3 column
 merged_df = pd.merge(df, schema_df, on='l3')
+
+========================================
+import pandas as pd
+
+# Load data into a pandas DataFrame
+df = pd.read_excel('file.xlsx')
+
+# Get rows with NaN values
+rows_with_NaN = df[df.isna().any(axis=1)]
