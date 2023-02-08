@@ -46,4 +46,5 @@ df2 = pd.read_excel("df2.xlsx")
 
 # Merge the two DataFrames on a common column
 df_merged = df1.merge(df2[['common_column_name', 'desired_column_name']], on='common_column_name', how='left')
-
+# Sort the DataFrame by the date column in ascending order
+df = df.sort_values(by='date_column', ascending=True)
