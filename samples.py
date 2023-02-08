@@ -37,3 +37,13 @@ df = pd.read_excel('file.xlsx')
 
 # Get rows with NaN values
 rows_with_NaN = df[df.isna().any(axis=1)]
+============merge two dataframes ===============
+import pandas as pd
+
+# Load the data into two DataFrames
+df1 = pd.read_excel("df1.xlsx")
+df2 = pd.read_excel("df2.xlsx")
+
+# Merge the two DataFrames on a common column
+df_merged = df1.merge(df2[['common_column_name', 'desired_column_name']], on='common_column_name', how='left')
+
