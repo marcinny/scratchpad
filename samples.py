@@ -48,3 +48,8 @@ df2 = pd.read_excel("df2.xlsx")
 df_merged = df1.merge(df2[['common_column_name', 'desired_column_name']], on='common_column_name', how='left')
 # Sort the DataFrame by the date column in ascending order
 df = df.sort_values(by='date_column', ascending=True)
+==============================================
+# Iterate over the rows of the DataFrame
+for index, row in df.iterrows():
+    # Access data for each column by column name
+    print('Column1:', row['Column1'], 'Column2:', row['Column2'])
