@@ -53,3 +53,16 @@ df = df.sort_values(by='date_column', ascending=True)
 for index, row in df.iterrows():
     # Access data for each column by column name
     print('Column1:', row['Column1'], 'Column2:', row['Column2'])
+====================================================
+import pandas as pd
+
+# Create a sample DataFrame
+df = pd.DataFrame({'Column1': [1, 2, 3, 4], 'Column2': ['A', 'B', 'C', 'D']})
+
+# Select the 'Column1' column
+column1 = df['Column1']
+
+# Convert the column to a list
+column1_list = column1.tolist()
+
+print(column1_list)
