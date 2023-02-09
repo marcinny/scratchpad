@@ -89,3 +89,17 @@ for index, row in df.iterrows():
         df.at[index, ['Status Code', 'Result', 'Error']] = (r.status_code, '[OK]', np.nan)
 
 print(df)
+================================================
+def get_algo_mcs(self):
+    if not all(df_algo_names['Algo Name'].apply(lambda x: isinstance(x, str))):
+        print("Error: Algo Name column contains invalid values.")
+        return
+
+    for index, row in df_algo_names.iterrows():
+        algo = row['Algo Name']
+        if pd.isna(algo) or len(algo) < 5:
+            print("Invalid Algo Name.")
+            continue
+        algoid, status = self._search(algo)
+        if algoid != "ERR":
+            df_algo_names.at[index, 'mode'] = "modelunumer"
