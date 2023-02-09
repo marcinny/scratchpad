@@ -99,4 +99,7 @@ def get_algo_mcs(self):
         algoid, status = self._search(algo)
         if algoid != "ERR":
             df_algo_names.at[index, 'mode'] = "modelunumer"
+====================================================            
+lgEnt = [lg.get("code") for lg in md_data["info"]["legalENT"] if lg.get("code") is not None]
+isEASY = 'Y' if 'EASY' in lgEnt else 'N'
 
