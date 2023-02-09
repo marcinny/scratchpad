@@ -83,7 +83,9 @@ df = pd.merge(df, d, on='key', how='left')
 
 print(df)
 =============================================
-# Add a new column 'C' to the DataFrame and populate it while iterating
-for i in range(len(df)):
-    df.loc[i, 'C'] = df.loc[i, 'A'] + df.loc[i, 'B']
+for index, row in df.iterrows():
+    r = requests.get(row['ListOfURLs'])
+    if r.status_code == 200:
+        df.at[index, ['Status Code', 'Result', 'Error']] = (r.status_code, '[OK]', np.nan)
 
+print(df)
