@@ -82,4 +82,8 @@ d = pd.DataFrame(d, index=[0])
 df = pd.merge(df, d, on='key', how='left')
 
 print(df)
+=============================================
+# Add a new column 'C' to the DataFrame and populate it while iterating
+for i in range(len(df)):
+    df.loc[i, 'C'] = df.loc[i, 'A'] + df.loc[i, 'B']
 
