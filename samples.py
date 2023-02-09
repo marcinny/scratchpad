@@ -91,15 +91,12 @@ for index, row in df.iterrows():
 print(df)
 ================================================
 def get_algo_mcs(self):
-    if not all(df_algo_names['Algo Name'].apply(lambda x: isinstance(x, str))):
-        print("Error: Algo Name column contains invalid values.")
-        return
+    df_algo_names = df_algo_names[df_algo_names['Algo Name'].apply(lambda x: isinstance(x, str))]
+    df_algo_names = df_algo_names[df_algo_names['Algo Name'].apply(lambda x: len(x) >= 5)]
 
     for index, row in df_algo_names.iterrows():
         algo = row['Algo Name']
-        if pd.isna(algo) or len(algo) < 5:
-            print("Invalid Algo Name.")
-            continue
         algoid, status = self._search(algo)
         if algoid != "ERR":
             df_algo_names.at[index, 'mode'] = "modelunumer"
+
