@@ -66,3 +66,20 @@ column1 = df['Column1']
 column1_list = column1.tolist()
 
 print(column1_list)
+============= merege df and dict ================
+import pandas as pd
+
+# Create the dataframe
+df = pd.DataFrame({'key': ['A', 'B', 'C', 'D'], 'value_1': [1, 2, 3, 4]})
+
+# Create the dictionary
+d = {'key': 'B', 'value_2': 10}
+
+# Convert the dictionary to a dataframe
+d = pd.DataFrame(d, index=[0])
+
+# Merge the two dataframes based on the 'key' column
+df = pd.merge(df, d, on='key', how='left')
+
+print(df)
+
