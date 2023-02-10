@@ -102,4 +102,9 @@ def get_algo_mcs(self):
 ====================================================            
 lgEnt = [lg.get("code") for lg in md_data["info"]["legalENT"] if lg.get("code") is not None]
 isEASY = 'Y' if 'EASY' in lgEnt else 'N'
+===============================================
+original_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+even_dict = {key: value for key, value in original_dict.items() if value % 2 == 0}
+print(even_dict)
+# Output: {'b': 2, 'd': 4}
 
