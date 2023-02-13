@@ -129,3 +129,19 @@ merged_right = df1.merge(df2, on=['A', 'B'], how='right')
 merged_outer = df1.merge(df2, on=['A', 'B'], how='outer')
 merged_df = pd.merge(df1, df2, left_on='key1', right_on='key2')
 
+import pandas as pd
+
+# create the first DataFrame
+df1 = pd.DataFrame({'key1': [1, 2, 3, 4], 'key2': ['A', 'B', 'C', 'D'], 'value1': ['X', 'Y', 'Z', 'W']})
+
+# create the second DataFrame
+df2 = pd.DataFrame({'key3': [3, 4, 5, 6], 'key4': pd.to_datetime(['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04']), 'value2': ['P', 'Q', 'R', 'S']})
+
+# convert key2 to datetime
+df1['key2'] = pd.to_datetime(df1['key2'])
+
+# merge the two DataFrames based on the key1 and key3 columns, and key2 and key4 columns
+merged_df = pd.merge(df1, df2, left_on=['key1', 'key2'], right_on=['key3', 'key4'])
+
+# display the merged DataFrame
+print(merged_df)
