@@ -142,6 +142,6 @@ df1['key2'] = pd.to_datetime(df1['key2'])
 
 # merge the two DataFrames based on the key1 and key3 columns, and key2 and key4 columns
 merged_df = pd.merge(df1, df2, left_on=['key1', 'key2'], right_on=['key3', 'key4'])
-
+if isinstance(df['col3'].dtype, pd.DatetimeTZDtype):
 # display the merged DataFrame
 print(merged_df)
