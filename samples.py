@@ -145,3 +145,14 @@ merged_df = pd.merge(df1, df2, left_on=['key1', 'key2'], right_on=['key3', 'key4
 if isinstance(df['col3'].dtype, pd.DatetimeTZDtype):
 # display the merged DataFrame
 print(merged_df)
+import pandas as pd
+
+# create a DataFrame
+df = pd.DataFrame({'col1': [1, 2, 3, 4], 'col2': ['A', 'B', 'C', 'D'], 'col3': ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04']})
+
+# convert col3 to datetime and then to string with format 'dd-mm-yy'
+df['col3'] = pd.to_datetime(df['col3'])
+df['col3'] = df['col3'].dt.strftime('%d-%m-%y')
+
+# display the resulting DataFrame
+print(df)
