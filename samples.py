@@ -107,4 +107,24 @@ original_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 even_dict = {key: value for key, value in original_dict.items() if value % 2 == 0}
 print(even_dict)
 # Output: {'b': 2, 'd': 4}
+=================compare DFs==============================
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'A': ['A0', 'A1', 'A2', 'A3'],
+    'B': ['B0', 'B1', 'B2', 'B3'],
+    'C': ['C0', 'C1', 'C2', 'C3'],
+    'D': ['D0', 'D1', 'D2', 'D3']
+})
+
+df2 = pd.DataFrame({
+    'A': ['A2', 'A3', 'A4', 'A5'],
+    'B': ['B2', 'B3', 'B4', 'B5'],
+    'C': ['C2', 'C3', 'C4', 'C5'],
+    'D': ['D2', 'D3', 'D4', 'D5']
+})
+
+merged_left = df1.merge(df2, on=['A', 'B'], how='left')
+merged_right = df1.merge(df2, on=['A', 'B'], how='right')
+merged_outer = df1.merge(df2, on=['A', 'B'], how='outer')
 
