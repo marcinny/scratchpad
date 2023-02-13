@@ -127,4 +127,41 @@ df2 = pd.DataFrame({
 merged_left = df1.merge(df2, on=['A', 'B'], how='left')
 merged_right = df1.merge(df2, on=['A', 'B'], how='right')
 merged_outer = df1.merge(df2, on=['A', 'B'], how='outer')
+=================================html=================================
+<html>
+<head>
+  <title>My HTML Page</title>
+  <script>
+    function sayHello() {
+      alert("Hello, World!");
+    }
+  </script>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is a simple HTML page.</p>
+  <button onclick="sayHello()">Click Me</button>
+</body>
+</html>
 
+==========
+<script>
+  function filterTable(event) {
+    var filter = event.target.value.toUpperCase();
+    var rows = document.querySelector("#myTable tbody").rows;
+    for (var i = 0; i < rows.length; i++) {
+      var firstCol = rows[i].cells[0].textContent.toUpperCase();
+      var secondCol = rows[i].cells[1].textContent.toUpperCase();
+      var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+      // Repeat for all 15 columns
+      if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+  document.querySelector('#myInput').addEventListener('input', filterTable);
+</script>
+
+<input type="text" id="myInput" placeholder="Search for names..">
