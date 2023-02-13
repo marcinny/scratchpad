@@ -127,4 +127,5 @@ df2 = pd.DataFrame({
 merged_left = df1.merge(df2, on=['A', 'B'], how='left')
 merged_right = df1.merge(df2, on=['A', 'B'], how='right')
 merged_outer = df1.merge(df2, on=['A', 'B'], how='outer')
+merged_df = pd.merge(df1, df2, left_on='key1', right_on='key2')
 
