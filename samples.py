@@ -156,3 +156,5 @@ df['col3'] = df['col3'].dt.strftime('%d-%m-%y')
 
 # display the resulting DataFrame
 print(df)
+df_algo_names['ATGF Date'] = pd.to_datetime(df_algo_names['ATGF Date'].astype(str), format='%Y-%m-%d %H:%M:%S')
+
