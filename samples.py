@@ -233,4 +233,32 @@ for rel in attachment_rels:
     with open(attachment_path, 'wb') as f:
         f.write(rel.target_part.blob)
     print(f'Extracted attachment: {attachment_name}')
+==========================
+from docx import Document
+import requests
+
+# Open the DOCX file
+docx_file = 'example.docx'
+doc = Document(docx_file)
+
+# Get the attachment relationships
+attachment_rels = [
+    rel for rel in doc.part.rels.values()
+    if rel.target_part is None and rel.is_external
+]
+
+# Extract the external attachments
+for rel in attachment_rels:
+    # Get the attachment name and target URI
+    attachment_name = rel.target_ref.path
+    attachment_uri = rel.target_ref.uri
+
+    # Download the attachment from the target URI
+    response = requests.get(attachment_uri)
+
+    # Save the attachment to disk
+    with open(attachment_name, 'wb') as f:
+        f.write(response.content)
+
+    print(f'Extracted attachment: {attachment_name}')
 
