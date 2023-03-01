@@ -263,8 +263,8 @@ for rel in attachment_rels:
     print(f'Extracted attachment: {attachment_name}')
 ==============================================
 import os
-import zipfile
 from docx import Document
+from docx.opc.constants import RELATIONSHIP_TYPE
 
 # Open the DOCX file
 docx_file = 'example.docx'
@@ -273,9 +273,11 @@ doc = Document(docx_file)
 # Find the attachment relationship with TargetMode='External'
 attachment_rel = None
 for rel in doc.part.rels.values():
-    if rel.target_mode == 'External':
-        attachment_rel = rel
-        break
+    if rel.rel_type == RELATIONSHIP_TYPE.HYPERLINK:
+        # check if the target is an external file
+        if rel.target_mode == RELATIONSHIP_TARGET_MODE_EXTERNAL:
+            attachment_rel = rel
+            break
 
 if attachment_rel is None:
     print('No external attachment found')
@@ -283,13 +285,8 @@ else:
     # Get the original file name from the relationship
     attachment_name = os.path.basename(attachment_rel.target_ref.target)
     
-    # Open the DOCX file as a ZIP archive
-    docx_archive = zipfile.ZipFile(docx_file)
-    
     # Extract the attachment contents to a file with the original name
     with open(attachment_name, 'wb') as f:
-        f.write(docx_archive.read(attachment_rel.target_ref.path))
+        f.write(attachment_rel.target_ref.part.blob)
 
     print(f'Extracted attachment: {attachment_name}')
-
-
