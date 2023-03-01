@@ -157,4 +157,56 @@ df['col3'] = df['col3'].dt.strftime('%d-%m-%y')
 # display the resulting DataFrame
 print(df)
 df_algo_names['ATGF Date'] = pd.to_datetime(df_algo_names['ATGF Date'].astype(str), format='%Y-%m-%d %H:%M:%S')
+==========================================
+import os
+from docx import Document
+from docx.opc.constants import RELATIONSHIP_TYPE
+
+# Open the DOCX file
+docx_file = 'example.docx'
+doc = Document(docx_file)
+
+# Get the attachment relationships
+attachment_rels = [
+    rel for rel in doc.part.rels.values() 
+    if rel.reltype == RELATIONSHIP_TYPE.ATTACHMENT
+]
+
+# Extract the attachments
+for rel in attachment_rels:
+    # Get the attachment name and path
+    attachment_name = os.path.basename(rel.target_ref.path)
+    attachment_path = os.path.join(
+        os.path.dirname(docx_file), rel.target_ref.path
+    )
+    # Save the attachment to disk
+    with open(attachment_path, 'wb') as f:
+        f.write(rel.target_part.blob)
+    print(f'Extracted attachment: {attachment_name}')
+====================================================
+from docx import Document
+from docx.opc.constants import RELATIONSHIP_TYPE
+
+# Open the DOCX file
+docx_file = 'example.docx'
+doc = Document(docx_file)
+
+# Get the attachment relationships
+attachment_rels = [
+    rel for rel in doc.part.rels.values() 
+    if rel.reltype == RELATIONSHIP_TYPE.ATTACHMENT
+]
+
+# Extract the PDF attachments
+for rel in attachment_rels:
+    if rel.target_part.content_type == 'application/pdf':
+        # Get the attachment name and title
+        attachment_name = rel.target_ref.path
+        attachment_title = rel.target_part.get_or_add_title_of_image_part()
+
+        # Save the attachment to disk
+        with open(attachment_name, 'wb') as f:
+            f.write(rel.target_part.blob)
+        
+        print(f'Extracted attachment: {attachment_title}')
 
