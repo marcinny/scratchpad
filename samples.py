@@ -262,28 +262,34 @@ for rel in attachment_rels:
 
     print(f'Extracted attachment: {attachment_name}')
 ==============================================
-from docxtpl import DocxTemplate
 import os
+import zipfile
+from docx import Document
 
 # Open the DOCX file
 docx_file = 'example.docx'
-doc = DocxTemplate(docx_file)
+doc = Document(docx_file)
 
-# Get the attachment relationships
-attachment_rels = [
-    rel for rel in doc.part.rels.values()
-    if rel.target_part is None and rel.is_external
-]
+# Find the attachment relationship with TargetMode='External'
+attachment_rel = None
+for rel in doc.part.rels.values():
+    if rel.target_mode == 'External':
+        attachment_rel = rel
+        break
 
-# Extract the external attachments
-for rel in attachment_rels:
-    # Get the attachment name and target URI
-    attachment_name = os.path.basename(rel.target_ref.path)
-    attachment_uri = rel.target_ref.uri
-
-    # Download the attachment from the target URI
+if attachment_rel is None:
+    print('No external attachment found')
+else:
+    # Get the original file name from the relationship
+    attachment_name = os.path.basename(attachment_rel.target_ref.target)
+    
+    # Open the DOCX file as a ZIP archive
+    docx_archive = zipfile.ZipFile(docx_file)
+    
+    # Extract the attachment contents to a file with the original name
     with open(attachment_name, 'wb') as f:
-        f.write(doc.get_part(attachment_uri).blob)
+        f.write(docx_archive.read(attachment_rel.target_ref.path))
 
     print(f'Extracted attachment: {attachment_name}')
+
 
